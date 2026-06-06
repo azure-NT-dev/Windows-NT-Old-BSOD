@@ -152,10 +152,10 @@ $form.Add_KeyDown({ if ($_.KeyCode -eq 'Escape') {
 if ($w -eq 0) { $w = 1920 }; if ($h -eq 0) { $h = 1080 }
 $scaleY = $h / 1080
 
-$leftMargin = [int](30 * $scaleY)
+$leftMargin = [int](5 * $scaleY)
 $textYStart = [int](30 * $scaleY)
 
-$mainFontSize = [int](16 * $scaleY)
+$mainFontSize = [int](20 * $scaleY)
 if ($mainFontSize -lt 9) { $mainFontSize = 9 }
 
 $classicText =  "A problem has been detected and windows has been shut down to prevent damage`r`nto your computer.`r`n`r`n"
