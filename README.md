@@ -33,7 +33,7 @@ A PowerShell-based utility that emulates legacy Blue Screen of Death (BSOD) scre
     *Open your Windows Powershell/Windows Terminal (No admin privileges  is required.)*
 ## 1. Change to downloads dir: `cd Downloads`
 
- ## 2. Locating  the folder in Powershell/terminal: `cd Windows-NT-Old-BSOD-1.0.0\Windows-NT-Old-BSOD-1.0.0`
+ ## 2. Locating  the folder in Powershell/terminal: `cd Windows-NT-Old-BSOD-1.0.1\Windows-NT-Old-BSOD-1.0.1`
 
 
  ## 3. Allow script execution for this session (required for unsigned scripts): `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
