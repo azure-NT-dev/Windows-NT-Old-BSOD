@@ -29,14 +29,14 @@ A PowerShell-based utility that emulates legacy Blue Screen of Death (BSOD) scre
 7. **Safe Simulation**  
    Runs in fullscreen, hides cursor, exits with **Escape**, and cleans up resources no actual crash or data loss.
 
-   # SET-UP: 
+     # Guide on how on set up: 
+    *Open your Windows Powershell/Windows Terminal (No admin privileges  is required.)*
+## 1. Change to downloads dir: `cd Downloads`
 
-  ##  1. Change to downloads dir: cd Downloads
+ ## 2. Locating  the folder in Powershell/terminal: `cd Windows-NT-Old-BSOD-1.0.0\Windows-NT-Old-BSOD-1.0.0`
 
-  ##  2. Locate the folder
 
- ##   3. Change the dir to that folder which is: cd Windows-NT-Old-BSOD-1.0.0\Windows-NT-Old-BSOD-1.0.0
+ ## 3. Allow script execution for this session (required for unsigned scripts): `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`
 
-##   4. Allow script execution for this session (required for unsigned scripts): Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+##  4. Run the script: `.\BugCheck-Mockup.ps1`
 
-##   5. Run the script: .\BugCheck-Mockup.ps1
