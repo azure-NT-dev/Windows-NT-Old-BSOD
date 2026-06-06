@@ -29,7 +29,7 @@ A PowerShell-based utility that emulates legacy Blue Screen of Death (BSOD) scre
 7. **Safe Simulation**  
    Runs in fullscreen, hides cursor, exits with **Escape**, and cleans up resources no actual crash or data loss.
 
-     # Guide on how on set up: 
+     # Guide on how to set up: 
     *Open your Windows Powershell/Windows Terminal (No admin privileges  is required.)*
 ## 1. Change to downloads dir: `cd Downloads`
 
