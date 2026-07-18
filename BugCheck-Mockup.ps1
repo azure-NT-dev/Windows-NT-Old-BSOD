@@ -96,7 +96,7 @@ $textYStart = [int](30 * $scaleY)
 $mainFontSize = [int](20 * $scaleY)
 if ($mainFontSize -lt 9) { $mainFontSize = 9 }
 
-$classicText = "A problem has been detected and windows has been shut down to prevent damage`r`nto your computer.`r`n`r`n"
+$classicText = "A problem has been detected and Windows has been shut down to prevent damage`r`nto your computer.`r`n`r`n"
 if ($failingFile) {
     $classicText += "The problem seems to be caused by the following file: $failingFile`r`n`r`n"
 }
