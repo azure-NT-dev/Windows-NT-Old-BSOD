@@ -107,7 +107,8 @@ switch ($errorType) {
         $classicText += "$StopCode`r`n`r`n"
     }
         default {
-        if ($hexCode.Trim() -eq "0x00000116") {
+        if (($hexCode.Trim()) -eq "0x00000116") {
+
             $classicText += "Attempt to reset the display driver and recover from timeout failed.`r`n`r`n"
         } else {
             if ($failingFile) {
