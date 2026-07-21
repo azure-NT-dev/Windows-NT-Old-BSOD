@@ -106,12 +106,17 @@ switch ($errorType) {
     "BootFailure" {
         $classicText += "$StopCode`r`n`r`n"
     }
-    default {
-        if ($failingFile) {
-            $classicText += "The problem seems to be caused by the following file: $failingFile`r`n`r`n"
+        default {
+        if ($hexCode.Trim() -eq "0x00000116") {
+            $classicText += "Attempt to reset the display driver and recover from timeout failed.`r`n`r`n"
+        } else {
+            if ($failingFile) {
+                $classicText += "The problem seems to be caused by the following file: $failingFile`r`n`r`n"
+            }
+            $classicText += "$StopCode`r`n`r`n"
         }
-        $classicText += "$StopCode`r`n`r`n"
     }
+
 }
 
 $classicText += "If this is the first time you've seen this Stop error screen,`r`nrestart your computer. If this screen appears again, follow`r`nthese steps:`r`n`r`n"
