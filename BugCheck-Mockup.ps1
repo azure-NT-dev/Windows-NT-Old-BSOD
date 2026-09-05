@@ -10,12 +10,12 @@ $stopCodes = @(
     @{ Code = "DRIVER_IRQL_NOT_LESS_OR_EQUAL"; Hex = "0x000000D1"; Failed = "nvlddmkm.sys"; Type = "Standard" },
     @{ Code = "INACCESSIBLE_BOOT_DEVICE"; Hex = "0x0000007B"; Failed = "storport.sys"; Type = "Standard" },
     @{ Code = "NTFS_FILE_SYSTEM"; Hex = "0x00000024"; Failed = "ntfs.sys"; Type = "Standard" },
-    @{ Code = "PFN_LIST_CORRUPT"; Hex = "0x0000004E"; Failed = "ntoskrnl.exe"; Type = "Standard" },
+    @{ Code = "PFN_LIST_CORRUPT"; Hex = "0x0000004E"; Failed = ""; Type = "Standard" },
     @{ Code = "SYSTEM_SERVICE_EXCEPTION"; Hex = "0x0000003B"; Failed = "win32k.sys"; Type = "Standard" },
     @{ Code = "SYSTEM_THREAD_EXCEPTION_NOT_HANDLED"; Hex = "0x0000007E"; Failed = "nvlddmkm.sys"; Type = "Standard" },
-    @{ Code = "UNEXPECTED_KERNEL_MODE_TRAP"; Hex = "0x0000007F"; Failed = "ntoskrnl.exe"; Type = "Standard" },
-    @{ Code = "DRIVER_OVERRAN_STACK_BUFFER"; Hex = "0x000000F7"; Failed = "ntoskrnl.exe"; Type = "Standard" },
-    @{ Code = "CRITICAL_STRUCTURE_CORRUPTION"; Hex = "0x00000109"; Failed = "ntoskrnl.exe"; Type = "Standard" },
+    @{ Code = "UNEXPECTED_KERNEL_MODE_TRAP"; Hex = "0x0000007F"; Failed = ""; Type = "Standard" },
+    @{ Code = "DRIVER_OVERRAN_STACK_BUFFER"; Hex = "0x000000F7"; Failed = ""; Type = "Standard" },
+    @{ Code = "CRITICAL_STRUCTURE_CORRUPTION"; Hex = "0x00000109"; Failed = ""; Type = "Standard" },
     @{ Code = "BAD_POOL_HEADER"; Hex = "0x00000019"; Failed = "ntoskrnl.exe"; Type = "Standard" },
     @{ Code = "POOL_CORRUPTION_IN_FILE_AREA"; Hex = "0x000000DE"; Failed = "ntfs.sys"; Type = "Standard" },
     @{ Code = "DRIVER_LEFT_LOCKED_PAGES_IN_PROCESS"; Hex = "0x000000CB"; Failed = "ndis.sys"; Type = "Standard" },
@@ -34,8 +34,8 @@ $stopCodes = @(
     @{ Code = "SPECIAL_POOL_DETECTED_MEMORY_CORRUPTION"; Hex = "0x000000C1"; Failed = "ntoskrnl.exe"; Type = "Standard" },
 
     @{ Code = "THREAD_STUCK_IN_DEVICE_DRIVER"; Hex = "0x000000EA"; Failed = "nvlddmkm.sys"; Type = "Standard" },
-    @{ Code = "HAL_INITIALIZATION_FAILED"; Hex = "0x0000005C"; Failed = "hal.dll"; Type = "Standard" },
-    @{ Code = "MACHINE_CHECK_EXCEPTION"; Hex = "0x0000009C"; Failed = "hal.dll"; Type = "Standard" },
+    @{ Code = "HAL_INITIALIZATION_FAILED"; Hex = "0x0000005C"; Failed = ""; Type = "Standard" },
+    @{ Code = "MACHINE_CHECK_EXCEPTION"; Hex = "0x0000009C"; Failed = ""; Type = "Standard" },
     
     @{ Code = "UNMOUNTABLE_BOOT_VOLUME"; Hex = "0x000000ED"; Failed = ""; Type = "BootFailure" },
     @{ Code = "KERNEL_DATA_INPAGE_ERROR"; Hex = "0x0000007A"; Failed = "disk.sys"; Type = "Standard" },
@@ -106,10 +106,11 @@ switch ($errorType) {
     "BootFailure" {
         $classicText += "$StopCode`r`n`r`n"
     }
-        default {
+    default {
         if (($hexCode.Trim()) -eq "0x00000116") {
-
             $classicText += "Attempt to reset the display driver and recover from timeout failed.`r`n`r`n"
+        } elseif (($hexCode.Trim()) -eq "0x00000109") {
+            $classicText += "Modification  of system code or a  critical data structure  was detected.`r`n`r`n"
         } else {
             if ($failingFile) {
                 $classicText += "The problem seems to be caused by the following file: $failingFile`r`n`r`n"
@@ -117,7 +118,6 @@ switch ($errorType) {
             $classicText += "$StopCode`r`n`r`n"
         }
     }
-
 }
 
 $classicText += "If this is the first time you've seen this Stop error screen,`r`nrestart your computer. If this screen appears again, follow`r`nthese steps:`r`n`r`n"
