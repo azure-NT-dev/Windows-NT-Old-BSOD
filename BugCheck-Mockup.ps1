@@ -57,15 +57,41 @@ $failingFile = $errorChoice.Failed
 $errorType = $errorChoice.Type
 
 function Get-RandomKernelAddr {
-    $high = (Get-Random -Min 0x1000 -Max 0xFFFF).ToString("X4")
-    $low  = (Get-Random -Min 0x10000 -Max 0xFFFFF).ToString("X5")
-    return "0xFFFFF80$high$low"
+    param(
+        [switch]$WheaStyle,
+        [switch]$WheaFirst
+    )
+
+    if ($WheaStyle) {
+        if ($WheaFirst) {
+            return "0x0000000000000000"
+        } else {
+            $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+            $bytes = New-Object byte[] 8
+            $rng.GetBytes($bytes)
+            $val = [System.BitConverter]::ToUInt64($bytes, 0)
+            return ("0x{0:X16}" -f $val)
+        }
+    } else {
+        $high = (Get-Random -Min 0x1000 -Max 0xFFFF).ToString("X4")
+        $low  = (Get-Random -Min 0x10000 -Max 0xFFFFF).ToString("X5")
+        return "0xFFFFF80$high$low"
+    }
 }
 
-$param1 = Get-RandomKernelAddr
-$param2 = Get-RandomKernelAddr
-$param3 = Get-RandomKernelAddr
-$param4 = (Get-RandomKernelAddr).Replace("0x", "0X")
+# Parameter assignment logic 
+if ($errorType -eq "BootFailure" -and $hexCode -eq "0x00000124") {
+    $param1 = Get-RandomKernelAddr -WheaStyle -WheaFirst
+    $param2 = Get-RandomKernelAddr -WheaStyle
+    $param3 = Get-RandomKernelAddr -WheaStyle
+    $param4 = (Get-RandomKernelAddr -WheaStyle).Replace("0x", "0X")
+} else {
+    $param1 = Get-RandomKernelAddr
+    $param2 = Get-RandomKernelAddr
+    $param3 = Get-RandomKernelAddr
+    $param4 = (Get-RandomKernelAddr).Replace("0x", "0X")
+}
+
 
 # Something special.
 if ((Get-Random -Min 1 -Max 101) -le 1) {
@@ -104,7 +130,11 @@ switch ($errorType) {
         $classicText += "A process or thread crucial to system operation has unexpectedly exited or been terminated.`r`n`r`n"
     }
     "BootFailure" {
-        $classicText += "$StopCode`r`n`r`n"
+        if (($hexCode.Trim()) -eq "0x00000124") {
+            $classicText += "The system encountered an uncorrectable hardware error.`r`n`r`n"
+        } else {
+            $classicText += "$StopCode`r`n`r`n"
+        }
     }
     default {
         if (($hexCode.Trim()) -eq "0x00000116") {
